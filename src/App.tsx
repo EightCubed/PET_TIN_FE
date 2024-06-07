@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useAuth } from "./Context/AuthProvider";
 import useRefreshToken from "./hooks/useRefreshToken";
+import Loader from "./Components/Loader";
+import { DASHBOARD_URL, LOGIN_URL } from "./Components/constants";
 
 function App() {
   const { auth } = useAuth();
@@ -34,26 +36,32 @@ function App() {
           setIsAuthenticated(false);
         }
       }
-      setLoading(false);
+      setTimeout(async () => {
+        setLoading(false);
+      }, 200); // 0.2 seconds delay
     };
 
     verifyToken();
   }, [auth.accessToken, refresh]);
 
   if (loading) {
-    return <div>Loading...</div>; // Or a proper loading component
+    return <Loader />;
   }
 
   return (
     <div className="App">
       <Routes>
         <Route
-          path="/login"
-          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
+          path={LOGIN_URL}
+          element={
+            isAuthenticated ? <Navigate to={DASHBOARD_URL} /> : <Login />
+          }
         />
         <Route
-          path="/dashboard"
-          element={!isAuthenticated ? <Navigate to="/login" /> : <Dashboard />}
+          path={DASHBOARD_URL}
+          element={
+            !isAuthenticated ? <Navigate to={LOGIN_URL} /> : <Dashboard />
+          }
         />
       </Routes>
     </div>

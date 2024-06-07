@@ -1,0 +1,7 @@
+.loginContainer {
+  min-width: 400px;
+  min-height: 500px;
+  display: flex;
+  background-color: aqua;
+  margin: auto;
+}

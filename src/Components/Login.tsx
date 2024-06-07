@@ -2,37 +2,31 @@ import React, { useState } from "react";
 import { Fetch } from "../Utility Functions/fetch_utilites";
 import { LoginPostData, LoginPostResponseData } from "./login.types";
 import { useAuth } from "../Context/AuthProvider";
-import useRefreshToken from "../hooks/useRefreshToken";
+import { Button, Form } from "react-bootstrap";
+import styles from "./login.module.css";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
+
+const initFormData: LoginPostData = {
+  username: "",
+  password: "",
+};
 
 const LoginForm = () => {
   const { setAuth } = useAuth();
-  const refresh = useRefreshToken();
 
-  const [formData, setFormData] = useState<LoginPostData>({
-    username: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState(initFormData);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handleChange = (name: string, value: string) => {
     setFormData({
       ...formData,
       [name]: value,
     });
   };
 
-  const test = async (temp: string) => {
-    const response1 = await Fetch<LoginPostResponseData>({
-      method: "get",
-      apiRoutes: "listPets",
-      bearerToken: temp,
-    });
-    console.log(response1);
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
     const response = await Fetch<LoginPostResponseData>({
       method: "post",
       apiRoutes: "login",
@@ -47,38 +41,43 @@ const LoginForm = () => {
       roles: response.roles,
       accessToken: response.accessToken,
     });
-    test(response.accessToken);
-  };
-
-  const handleRefresh = async () => {
-    await refresh();
   };
 
   return (
-    <>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <label>Username:</label>
-          <input
+    <div className={cx("loginContainer")}>
+      <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form.Group>
+          <Form.Label>Login</Form.Label>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Username:</Form.Label>
+          <Form.Control
             type="text"
             name="username"
             value={formData.username}
-            onChange={(e) => handleChange(e)}
+            onChange={({ target: { name, value } }) =>
+              handleChange(name, value)
+            }
           />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        <button type="submit">Sign in</button>
-      </form>
-      <button onClick={handleRefresh}>Refresh</button>
-    </>
+          <div>
+            <Form.Label>Password:</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={({ target: { name, value } }) =>
+                handleChange(name, value)
+              }
+            />
+          </div>
+        </Form.Group>
+        <Form.Group>
+          <Button variant="dark" type="submit">
+            Sign in
+          </Button>
+        </Form.Group>
+      </Form>
+    </div>
   );
 };
 
