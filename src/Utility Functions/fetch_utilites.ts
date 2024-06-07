@@ -8,7 +8,7 @@ type ApiRoutes =
   | "register"
   | "refreshToken";
 
-const backendURL = "https://localhost:3000/api/";
+export const BACKEND_URL = "https://localhost:443/api/";
 
 type MethodType = "put" | "post" | "get" | "patch";
 
@@ -31,7 +31,7 @@ export async function Fetch<T>({
   try {
     let args: AxiosRequestConfig = {
       method,
-      url: backendURL + apiRoutes,
+      url: BACKEND_URL + apiRoutes,
       withCredentials: true,
     };
     if (Object.entries(data).length !== 0) {

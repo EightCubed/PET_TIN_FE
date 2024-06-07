@@ -1,34 +1,62 @@
-import { useEffect, useState } from "react";
 import "./App.css";
-import { PetListDataType } from "./Components/types";
-import PetView from "./Components/PetView";
 import Login from "./Components/Login";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Dashboard from "./Components/Dashboard";
+import { useEffect, useState } from "react";
+import { jwtDecode } from "jwt-decode";
+import { useAuth } from "./Context/AuthProvider";
+import useRefreshToken from "./hooks/useRefreshToken";
 
 function App() {
-  const [listData, setListData] = useState<PetListDataType[]>([]);
-
-  const fetchData = async () => {
-    try {
-      // const result = await Fetch<PetListDataType[]>("get", "listPets");
-      // setListData(result);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  const { auth } = useAuth();
+  const refresh = useRefreshToken();
+  const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    const checkTokenExpired = (token: string) => {
+      if (!token) return true;
+      const { exp } = jwtDecode(token);
+      if (!exp) return true;
+      const expiryDate = new Date(exp * 1000);
+      return expiryDate < new Date();
+    };
 
-  // console.log(listData);
+    const verifyToken = async () => {
+      const tokenExpired = checkTokenExpired(auth.accessToken);
+      if (!tokenExpired) {
+        setIsAuthenticated(true);
+      } else {
+        try {
+          await refresh();
+          setIsAuthenticated(true);
+        } catch (error) {
+          setIsAuthenticated(false);
+        }
+      }
+      setLoading(false);
+    };
+
+    verifyToken();
+  }, [auth.accessToken, refresh]);
+
+  if (loading) {
+    return <div>Loading...</div>; // Or a proper loading component
+  }
 
   return (
-    <>
-      <div className="card">
-        {listData && listData.map((data) => <PetView petData={data} />)}
-        <Login />
-      </div>
-    </>
+    <div className="App">
+      <Routes>
+        <Route
+          path="/login"
+          element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />}
+        />
+        <Route
+          path="/dashboard"
+          element={!isAuthenticated ? <Navigate to="/login" /> : <Dashboard />}
+        />
+      </Routes>
+    </div>
   );
 }
 
