@@ -1,22 +1,55 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-type ApiRoutes = "addPet" | "listPets";
+type ApiRoutes =
+  | "addPet"
+  | "listPets"
+  | "login"
+  | "logout"
+  | "register"
+  | "refreshToken";
 
-const backendURL = "http://localhost:3000/api/";
+const backendURL = "https://localhost:3000/api/";
 
 type MethodType = "put" | "post" | "get" | "patch";
 
-export async function Fetch<T>(
-  method: MethodType,
-  apiRoutes: ApiRoutes,
-  data?: unknown
-): Promise<T> {
+const protectedRoutes: ApiRoutes[] = ["addPet", "listPets"];
+
+interface FetchType {
+  method: MethodType;
+  apiRoutes: ApiRoutes;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data?: Record<string, any>;
+  bearerToken?: string;
+}
+
+export async function Fetch<T>({
+  method,
+  apiRoutes,
+  data = {},
+  bearerToken,
+}: FetchType): Promise<T> {
   try {
-    const response: AxiosResponse<T> = await axios({
+    let args: AxiosRequestConfig = {
       method,
       url: backendURL + apiRoutes,
-      data,
-    });
+      withCredentials: true,
+    };
+    if (Object.entries(data).length !== 0) {
+      args = {
+        ...args,
+        data,
+      };
+    }
+    if (protectedRoutes.includes(apiRoutes)) {
+      args = {
+        ...args,
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      };
+    }
+    console.log(args);
+    const response: AxiosResponse<T> = await axios(args);
     return response.data;
   } catch (error) {
     throw new Error(`Error making ${method} request : ${error}`);
