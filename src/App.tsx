@@ -38,7 +38,7 @@ function App() {
       }
       setTimeout(async () => {
         setLoading(false);
-      }, 200); // 0.2 seconds delay
+      }, 500); // 0.2 seconds delay
     };
 
     verifyToken();

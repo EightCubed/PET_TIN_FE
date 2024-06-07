@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import { Fetch } from "../Utility Functions/fetch_utilites";
 import { LoginPostData, LoginPostResponseData } from "./login.types";
 import { useAuth } from "../Context/AuthProvider";
-import { Button, Form } from "react-bootstrap";
 import styles from "./login.module.css";
 import classNames from "classnames/bind";
+import { Form } from "react-bootstrap";
 
 const cx = classNames.bind(styles);
 
 const initFormData: LoginPostData = {
   username: "",
   password: "",
+  rememberMe: false,
 };
 
 const LoginForm = () => {
@@ -25,14 +26,22 @@ const LoginForm = () => {
     });
   };
 
+  const handleChecked = () => {
+    setFormData({
+      ...formData,
+      rememberMe: !formData.rememberMe,
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const response = await Fetch<LoginPostResponseData>({
       method: "post",
       apiRoutes: "login",
       data: {
-        user: "admin",
-        pwd: "admin",
+        user: formData.username,
+        pwd: formData.password,
+        rememberMe: formData.rememberMe,
       },
     });
     setAuth({
@@ -45,38 +54,53 @@ const LoginForm = () => {
 
   return (
     <div className={cx("loginContainer")}>
-      <Form onSubmit={(e) => handleSubmit(e)}>
-        <Form.Group>
-          <Form.Label>Login</Form.Label>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Username:</Form.Label>
-          <Form.Control
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={({ target: { name, value } }) =>
-              handleChange(name, value)
-            }
-          />
-          <div>
-            <Form.Label>Password:</Form.Label>
-            <Form.Control
+      <div className={cx("loginLeftContainer")}>
+        <form className={cx("formContainer")} onSubmit={(e) => handleSubmit(e)}>
+          <div className={cx("signInText")}>Sign In</div>
+          <div className={cx("userNameBox")}>
+            <div className={cx("userNameText")}>USERNAME</div>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={({ target: { name, value } }) =>
+                handleChange(name, value)
+              }
+              size={30}
+              className={cx("userNameInput")}
+            />
+          </div>
+          <div className={cx("passwordNameBox")}>
+            <div className={cx("passwordNameText")}>PASSWORD</div>
+            <input
               type="password"
               name="password"
               value={formData.password}
               onChange={({ target: { name, value } }) =>
                 handleChange(name, value)
               }
+              size={30}
+              className={cx("passwordNameInput")}
             />
           </div>
-        </Form.Group>
-        <Form.Group>
-          <Button variant="dark" type="submit">
+          <button className={cx("signInButton")} type="submit">
             Sign in
-          </Button>
-        </Form.Group>
-      </Form>
+          </button>
+          <div className={cx("lastRow")}>
+            <div className={cx("checkboxContainer")}>
+              <Form.Check
+                type={"checkbox"}
+                className={cx("checkBox")}
+                checked={formData.rememberMe}
+                onChange={handleChecked}
+              />
+              <div className={cx("checkBoxText")}>Remember me</div>
+            </div>
+            <div className={cx("forgotPassword")}>Forgot Password</div>
+          </div>
+        </form>
+      </div>
+      <div className={cx("loginRightContainer")}></div>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 export interface LoginPostData {
   username: string;
   password: string;
+  rememberMe: boolean;
 }
 
 export interface LoginPostResponseData {

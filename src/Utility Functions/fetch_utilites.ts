@@ -48,7 +48,6 @@ export async function Fetch<T>({
         },
       };
     }
-    console.log(args);
     const response: AxiosResponse<T> = await axios(args);
     return response.data;
   } catch (error) {
