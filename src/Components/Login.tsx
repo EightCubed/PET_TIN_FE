@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Fetch } from "../Utility Functions/fetch_utilites";
 import { LoginPostData, LoginPostResponseData } from "./login.types";
-import { useAuth } from "../Context/AuthProvider";
+import { useAuth } from "../context/AuthProvider";
 import styles from "./login.module.css";
 import classNames from "classnames/bind";
 import { Form } from "react-bootstrap";

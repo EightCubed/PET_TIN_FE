@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from "react";
-import { initAuth } from "../Components/constants";
+import { initAuth } from "../components/constants";
 import { AuthContextType, AuthProviderProps, AuthTypes } from "./AuthTypes";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

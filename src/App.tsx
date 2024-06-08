@@ -1,13 +1,13 @@
 import "./App.css";
-import Login from "./Components/Login";
+import Login from "./components/Login";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Dashboard from "./Components/Dashboard";
+import Dashboard from "./components/Dashboard";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-import { useAuth } from "./Context/AuthProvider";
+import { useAuth } from "./context/AuthProvider";
 import useRefreshToken from "./hooks/useRefreshToken";
-import Loader from "./Components/Loader";
-import { DASHBOARD_URL, LOGIN_URL } from "./Components/constants";
+import Loader from "./components/Loader";
+import { DASHBOARD_URL, LOGIN_URL } from "./components/constants";
 
 function App() {
   const { auth } = useAuth();

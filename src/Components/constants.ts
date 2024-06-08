@@ -1,4 +1,4 @@
-import { AuthTypes } from "../Context/AuthTypes";
+import { AuthTypes } from "../context/AuthTypes";
 
 export const initAuth: AuthTypes = {
   username: "",

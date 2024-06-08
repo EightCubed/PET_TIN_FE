@@ -1,4 +1,4 @@
-import { PetDataType } from "../Components/types";
+import { PetDataType } from "../components/types";
 
 export const MOCK_DATA: PetDataType = {
   petName: "Goldy1",

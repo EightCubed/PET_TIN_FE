@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import { Fetch } from "../Utility Functions/fetch_utilites";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../Context/AuthProvider";
+import { useAuth } from "../context/AuthProvider";
 import { LOGIN_URL, initAuth } from "./constants";
 
 const Dashboard = () => {
