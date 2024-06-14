@@ -1,0 +1,32 @@
+.headerContainer {
+  position: absolute;
+  top: 0;
+  background-color: black;
+  color: white;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  margin: auto 0;
+}
+
+.iconContainer {
+  margin: auto 16px;
+  margin-right: 32px;
+}
+
+.iconImage {
+  width: 45px;
+  height: 45px;
+}
+
+.homeButton {
+  margin: auto 0;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.logoutButton {
+  cursor: pointer;
+  margin: auto 0;
+}

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useAuth } from "../context/AuthProvider";
-import { BACKEND_URL } from "../Utility Functions/fetch_utilites";
+import { BACKEND_URL } from "../utility Functions/fetch_utilites";
 
 const useRefreshToken = () => {
   const { setAuth } = useAuth();

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Fetch } from "../Utility Functions/fetch_utilites";
+import { Fetch } from "../utility Functions/fetch_utilites";
 import { LoginPostData, LoginPostResponseData } from "./login.types";
 import { useAuth } from "../context/AuthProvider";
 import styles from "./login.module.css";
 import classNames from "classnames/bind";
 import { Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -16,6 +17,7 @@ const initFormData: LoginPostData = {
 
 const LoginForm = () => {
   const { setAuth } = useAuth();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState(initFormData);
 
@@ -50,6 +52,10 @@ const LoginForm = () => {
       roles: response.roles,
       accessToken: response.accessToken,
     });
+  };
+
+  const handleNavigateToRegisterPage = () => {
+    navigate("/register");
   };
 
   return (
@@ -87,12 +93,11 @@ const LoginForm = () => {
             Sign in
           </button>
           <div className={cx("lastRow")}>
-            <div className={cx("checkboxContainer")}>
+            <div className={cx("checkboxContainer")} onClick={handleChecked}>
               <Form.Check
                 type={"checkbox"}
                 className={cx("checkBox")}
                 checked={formData.rememberMe}
-                onChange={handleChecked}
               />
               <div className={cx("checkBoxText")}>Remember me</div>
             </div>
@@ -100,7 +105,20 @@ const LoginForm = () => {
           </div>
         </form>
       </div>
-      <div className={cx("loginRightContainer")}></div>
+      <div className={cx("loginRightContainer")}>
+        <div className={cx("loginRightText")}>
+          <div className={cx("welcomeText")}>Welcome To Login</div>
+          <div className={cx("accountText")}>Don't have an account?</div>
+          <div className={cx("signUpButtonContainer")}>
+            <button
+              className={cx("signUpButton")}
+              onClick={handleNavigateToRegisterPage}
+            >
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,30 @@
+.petDisplay {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.imageContainer {
+  width: 100%;
+}
+
+.imageStyle {
+  width: 100%;
+  height: 100%;
+}
+
+.petDetails {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 20px;
+  /* width: 70%; */
+}
+
+.petName {
+  font-weight: 400;
+  margin-right: 8px;
+}
+
+.petAge {
+  font-weight: 800;
+}

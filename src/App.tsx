@@ -8,6 +8,7 @@ import { useAuth } from "./context/AuthProvider";
 import useRefreshToken from "./hooks/useRefreshToken";
 import Loader from "./components/Loader";
 import { DASHBOARD_URL, LOGIN_URL } from "./components/constants";
+import RegisterForm from "./components/Register";
 
 function App() {
   const { auth } = useAuth();
@@ -38,7 +39,7 @@ function App() {
       }
       setTimeout(async () => {
         setLoading(false);
-      }, 500); // 0.2 seconds delay
+      }, 1); // 0.8 seconds delay
     };
 
     verifyToken();
@@ -51,6 +52,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/register" element={<RegisterForm />}></Route>
         <Route
           path={LOGIN_URL}
           element={

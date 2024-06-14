@@ -1,0 +1,16 @@
+.displayGrid {
+  display: inline-grid;
+  grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+  width: 1200px;
+  gap: 16px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.gridItem {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  text-align: center;
+  height: 300px;
+  padding: 20px;
+}
