@@ -27,6 +27,9 @@ export const initPetData: PetListDataType = {
   ImageUrl: "",
   Species: "",
   Breed: "",
+  _id: "",
+  isLikedByUser: false,
+  numberOfLikes: 0,
 };
 
 export const initPetListData: PetListType = {

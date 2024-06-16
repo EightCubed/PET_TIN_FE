@@ -2,15 +2,24 @@
   display: inline-grid;
   grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
   width: 1200px;
-  gap: 16px;
+  gap: 36px;
   margin: 0 auto;
   margin-top: 100px;
+  row-gap: 40px;
 }
 
 .gridItem {
-  background-color: #f4f4f4;
+  background-color: #f9f9f9;
+  /* background-color: #ffe9e9; */
   border: 1px solid #ddd;
   text-align: center;
-  height: 300px;
+  height: 340px;
   padding: 20px;
+  border-radius: 5px;
+}
+
+.gridItem:hover {
+  background-color: #fee0e3;
+  color: white;
+  /* box-shadow: 1px 1px 1px 1px #fd6675; */
 }

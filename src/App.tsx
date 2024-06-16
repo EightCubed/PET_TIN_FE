@@ -9,6 +9,9 @@ import useRefreshToken from "./hooks/useRefreshToken";
 import Loader from "./components/Loader";
 import { DASHBOARD_URL, LOGIN_URL } from "./components/constants";
 import RegisterForm from "./components/Register";
+import Help from "./components/Help";
+import Faq from "./components/Faq";
+import IndividualPetView from "./components/IndividualPetView";
 
 function App() {
   const { auth } = useAuth();
@@ -61,6 +64,30 @@ function App() {
         />
         <Route
           path={DASHBOARD_URL}
+          element={
+            !isAuthenticated ? <Navigate to={LOGIN_URL} /> : <Dashboard />
+          }
+        />
+        <Route
+          path={"/help"}
+          element={!isAuthenticated ? <Navigate to={LOGIN_URL} /> : <Help />}
+        />
+        <Route
+          path={"/FAQ"}
+          element={!isAuthenticated ? <Navigate to={LOGIN_URL} /> : <Faq />}
+        />
+        <Route
+          path={"/pet/:id"}
+          element={
+            !isAuthenticated ? (
+              <Navigate to={LOGIN_URL} />
+            ) : (
+              <IndividualPetView />
+            )
+          }
+        />
+        <Route
+          path="*"
           element={
             !isAuthenticated ? <Navigate to={LOGIN_URL} /> : <Dashboard />
           }

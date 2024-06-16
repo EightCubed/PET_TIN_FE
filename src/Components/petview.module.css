@@ -2,29 +2,86 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  color: #333333;
 }
 
 .imageContainer {
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 24px;
 }
 
 .imageStyle {
   width: 100%;
-  height: 100%;
+  height: 170px;
+  border-radius: 10px;
 }
 
 .petDetails {
   display: flex;
-  margin: 0 auto;
-  margin-top: 20px;
+  flex-direction: column;
+  margin-top: 12px;
   /* width: 70%; */
 }
 
 .petName {
   font-weight: 400;
   margin-right: 8px;
+  line-height: 30px;
 }
 
 .petAge {
   font-weight: 800;
+}
+
+.heartIcon {
+  position: relative;
+  top: -40px;
+  left: -4px;
+}
+
+.firstRow {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+}
+
+.secondRow {
+  margin-left: 70px;
+  text-align: left;
+}
+
+.species {
+  display: flex;
+  flex-direction: row;
+  height: 28px;
+  margin-top: 8px;
+}
+
+.nameWidth {
+  font-weight: 600;
+  width: 60px;
+  color: #333333;
+}
+
+.petBreed {
+  margin-left: 12px;
+}
+
+.thirdRow {
+  display: flex;
+  flex-direction: row-reverse;
+  color: red;
+}
+
+.chipStyle {
+  display: flex;
+  position: relative;
+  width: 40%;
+  height: 0;
+  transform: rotate(-35deg);
+  top: -20px;
+  left: -20px;
 }

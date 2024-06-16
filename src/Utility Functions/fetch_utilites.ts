@@ -6,13 +6,20 @@ type ApiRoutes =
   | "login"
   | "logout"
   | "register"
-  | "refreshToken";
+  | "refreshToken"
+  | "likePet"
+  | "getPet";
 
 export const BACKEND_URL = "https://localhost:443/api/";
 
 type MethodType = "put" | "post" | "get" | "patch";
 
-const protectedRoutes: ApiRoutes[] = ["addPet", "listPets"];
+const protectedRoutes: ApiRoutes[] = [
+  "addPet",
+  "listPets",
+  "likePet",
+  "getPet",
+];
 
 interface FetchType {
   method: MethodType;
@@ -20,6 +27,7 @@ interface FetchType {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: Record<string, any>;
   bearerToken?: string;
+  id?: string;
 }
 
 export async function Fetch<T>({
@@ -27,6 +35,7 @@ export async function Fetch<T>({
   apiRoutes,
   data = {},
   bearerToken,
+  id = "",
 }: FetchType): Promise<T> {
   try {
     let args: AxiosRequestConfig = {
@@ -34,6 +43,9 @@ export async function Fetch<T>({
       url: BACKEND_URL + apiRoutes,
       withCredentials: true,
     };
+    if (id) {
+      args.url += "/" + id;
+    }
     if (Object.entries(data).length !== 0) {
       args = {
         ...args,

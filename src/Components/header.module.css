@@ -1,7 +1,7 @@
 .headerContainer {
   position: absolute;
   top: 0;
-  background-color: black;
+  background-color: #ff475a;
   color: white;
   width: 100%;
   height: 60px;
@@ -10,9 +10,13 @@
   margin: auto 0;
 }
 
+.selected {
+  color: rgb(195, 195, 195);
+}
+
 .iconContainer {
-  margin: auto 16px;
-  margin-right: 32px;
+  margin: auto 32px;
+  /* margin-right: 32px; */
 }
 
 .iconImage {
@@ -20,13 +24,60 @@
   height: 45px;
 }
 
-.homeButton {
-  margin: auto 0;
-  font-weight: 700;
-  font-size: 20px;
+.leftIcons {
+  display: flex;
+  flex-direction: row;
+  margin: auto 0 auto 8px;
 }
 
-.logoutButton {
+.homeButton {
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0 30px;
+}
+
+.FAQButton {
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0 30px;
+}
+
+.rightIcons {
+  display: flex;
+  flex-direction: row;
+  margin: auto 30px auto auto;
+}
+
+.likedPets {
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.pawIcon {
+  margin-right: 12px;
+}
+
+.profileButton {
+  display: flex;
+  flex-direction: row;
   cursor: pointer;
-  margin: auto 0;
+  margin: auto 20px;
+  font-weight: 700;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.profileName {
+  margin: auto 0 auto 16px;
+}
+
+.dropdownContainer {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  width: 200px;
+  background-color: black;
 }

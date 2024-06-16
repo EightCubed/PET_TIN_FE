@@ -1,6 +1,15 @@
 import { PetDataType } from "./types";
 import styles from "./petview.module.css";
 import classNames from "classnames/bind";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Checkbox from "@mui/material/Checkbox";
+import LocationOnSharpIcon from "@mui/icons-material/LocationOnSharp";
+import { Chip } from "@mui/material";
+import { Fetch } from "../utility Functions/fetch_utilites";
+import { useAuth } from "../context/AuthProvider";
+import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -8,17 +17,102 @@ interface PetViewProps {
   petData: PetDataType;
 }
 
+type Color =
+  | "default"
+  | "error"
+  | "primary"
+  | "secondary"
+  | "info"
+  | "success"
+  | "warning";
+
+interface ChipColors {
+  [key: string]: Color;
+}
+
+const chipConverter: ChipColors = {
+  Dog: "warning",
+  Cat: "primary",
+};
+
+const returnChipColor = (name: string): Color => {
+  return chipConverter[name] || "success";
+};
+
 const PetView = ({ petData }: PetViewProps) => {
-  console.log(petData);
+  const { auth } = useAuth();
+
+  const [isPetLiked, setIsPetLiked] = useState(petData.isLikedByUser);
+
+  const handleLike = async (
+    e: React.MouseEvent<HTMLLabelElement, MouseEvent>,
+    id: string
+  ) => {
+    e.stopPropagation();
+    try {
+      setIsPetLiked(!isPetLiked);
+      const response = await Fetch({
+        method: "post",
+        apiRoutes: "likePet",
+        data: { data: { id } },
+        bearerToken: auth.accessToken,
+      });
+      console.log("Liked", response);
+    } catch (err) {
+      setIsPetLiked(!isPetLiked);
+      console.error(err);
+    }
+  };
 
   return (
     <div className={cx("petDisplay")}>
+      <div className={cx("chipStyle")}>
+        <Chip
+          label={petData.Species}
+          variant="filled"
+          color={petData.Species ? returnChipColor(petData.Species) : "default"}
+          size="medium"
+        />
+      </div>
       <div className={cx("imageContainer")}>
-        <img src={petData.ImageUrl} className={cx("imageStyle")} />
+        <img
+          src={petData.ImageUrl}
+          className={cx("imageStyle")}
+          width={300}
+          height={170}
+        />
+        <div className={cx("heartIcon")}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                icon={<FavoriteBorderIcon />}
+                checkedIcon={<FavoriteIcon />}
+                onClick={() => {}}
+                checked={isPetLiked}
+              />
+            }
+            onClick={(e) => handleLike(e, petData._id)}
+            label={""}
+          />
+        </div>
       </div>
       <div className={cx("petDetails")}>
-        <div className={cx("petName")}>{petData.PetName}</div>
-        <div className={cx("petAge")}>({petData.Age})</div>
+        <div className={cx("firstRow")}>
+          <div className={cx("petName")}>{petData.PetName}</div>
+          <div className={cx("petAge")}>
+            <Chip label={petData.Age} />
+          </div>
+        </div>
+        <div className={cx("secondRow")}>
+          <div className={cx("species")}>
+            <p className={cx("nameWidth")}>Breed</p> :{" "}
+            <p className={cx("petBreed")}>{petData.Breed}</p>
+          </div>
+        </div>
+        <div className={cx("thirdRow")}>
+          <LocationOnSharpIcon />
+          {petData.Location.State},{petData.Location.Country}
+        </div>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ export interface PetListType {
 }
 
 export type PetDataType = {
+  _id: string;
   PetName: string;
   Age: string;
   Gender: string;
@@ -24,4 +25,6 @@ export type PetDataType = {
   ImageUrl: string;
   Species: string;
   Breed: string;
+  isLikedByUser: boolean;
+  numberOfLikes: number;
 };

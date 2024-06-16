@@ -1,0 +1,44 @@
+.displayDetailContainer {
+  width: 800px;
+  min-height: 800px;
+  margin: 160px auto;
+  background-color: white;
+  overflow-y: scroll;
+}
+
+.heartIconContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  line-height: 45px;
+  width: 100%;
+}
+
+.interestedWidth {
+  margin-right: 8px;
+  font-weight: 800;
+}
+
+.numberOfLikes {
+  position: relative;
+  top: -3px;
+}
+
+.heartIcon {
+  margin-left: 8px;
+  position: relative;
+  top: -2px;
+}
+
+.petImageStyle {
+  width: 500px;
+  height: 300px;
+}
+
+.lastRow {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  justify-content: space-between;
+  margin: 0 auto;
+}
