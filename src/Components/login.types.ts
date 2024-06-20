@@ -13,4 +13,6 @@ export interface RegisterPostData {
 export interface LoginPostResponseData {
   roles: number[];
   accessToken: string;
+  _id: string;
+  username: string;
 }

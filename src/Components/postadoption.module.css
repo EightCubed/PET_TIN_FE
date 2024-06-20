@@ -1,0 +1,87 @@
+.postAdoptionContainer {
+  width: 1000px;
+  margin: 160px auto;
+  background-color: rgb(180, 180, 180);
+  color: white;
+  overflow-y: scroll;
+  padding: 50px 80px;
+  border-radius: 10px;
+  background-color: aqua;
+  min-height: 800px;
+}
+
+.userDetails {
+  background-color: greenyellow;
+  padding: 24px 0;
+}
+
+.userDetailsInputs {
+  display: inline-grid;
+  grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+  width: 100%;
+  min-height: 150px;
+}
+
+.disabled {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.postAdoptionTitle {
+  font-size: 36px;
+}
+
+.petDetails {
+  background-color: black;
+  padding: 24px 0;
+}
+
+.petDetailsTitle {
+  font-size: 24px;
+}
+
+.petDetailsInputs {
+  display: inline-grid;
+  grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+  width: 100%;
+  min-height: 300px;
+}
+
+.petLocationDetails {
+  background-color: chocolate;
+}
+
+.petLocationDetailsInputs {
+  display: inline-grid;
+  grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+  width: 100%;
+  min-height: 150px;
+}
+
+.inputField {
+  width: 300px;
+  background-color: #e9e9e9;
+  border-radius: 8px;
+  padding-left: 12px;
+  margin-top: 4px;
+  color: black;
+  border: none;
+  height: 32px;
+}
+
+.inputFieldDisabled {
+  width: 300px;
+  background-color: #afafaf;
+  border-radius: 8px;
+  padding-left: 12px;
+  margin-top: 4px;
+  color: black;
+  border: none;
+  height: 32px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}

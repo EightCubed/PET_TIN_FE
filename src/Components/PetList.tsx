@@ -7,12 +7,14 @@ import PetView from "./PetView";
 import styles from "./petlist.module.css";
 import classNames from "classnames/bind";
 import { useNavigate } from "react-router-dom";
+import Loader from "./Loader";
 
 const cx = classNames.bind(styles);
 
 const PetList = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   const [petListData, setPetListData] = useState<PetListType>(initPetListData);
 
@@ -24,19 +26,23 @@ const PetList = () => {
         bearerToken: auth.accessToken,
       });
       setPetListData(response);
+      setIsLoading(false);
     } catch (err) {
       console.error("Something Went Wrong!!!");
     }
   };
 
   const handleClick = (data: PetListDataType) => {
-    console.log(data._id);
     navigate("/pet/" + data._id);
   };
 
   useEffect(() => {
     fetchPetList();
   }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className={cx("displayGrid")}>

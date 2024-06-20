@@ -12,11 +12,16 @@ import RegisterForm from "./components/Register";
 import Help from "./components/Help";
 import Faq from "./components/Faq";
 import IndividualPetView from "./components/IndividualPetView";
+import LikedPets from "./components/LikedPets";
+import NotFoundPage from "./components/NotFoundPage";
+import PostAdoption from "./components/PostAdoption";
+import GetUser from "./components/GetUser";
+import MyAccount from "./components/MyAccount";
 
 function App() {
   const { auth } = useAuth();
   const refresh = useRefreshToken();
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -40,21 +45,20 @@ function App() {
           setIsAuthenticated(false);
         }
       }
-      setTimeout(async () => {
-        setLoading(false);
-      }, 1); // 0.8 seconds delay
+      setIsLoading(false);
     };
 
     verifyToken();
   }, [auth.accessToken, refresh]);
 
-  if (loading) {
+  if (isLoading) {
     return <Loader />;
   }
 
   return (
     <div className="App">
       <Routes>
+        <Route path="/" element={<Navigate to="/dashboard" />} />
         <Route path="/register" element={<RegisterForm />}></Route>
         <Route
           path={LOGIN_URL}
@@ -87,9 +91,31 @@ function App() {
           }
         />
         <Route
+          path={"/likedPets"}
+          element={
+            !isAuthenticated ? <Navigate to={LOGIN_URL} /> : <LikedPets />
+          }
+        />
+        <Route
+          path={"/postAdoption"}
+          element={
+            !isAuthenticated ? <Navigate to={LOGIN_URL} /> : <PostAdoption />
+          }
+        />
+        <Route
+          path={"/profile"}
+          element={!isAuthenticated ? <Navigate to={LOGIN_URL} /> : <GetUser />}
+        />
+        <Route
+          path={"/myAccount"}
+          element={
+            !isAuthenticated ? <Navigate to={LOGIN_URL} /> : <MyAccount />
+          }
+        />
+        <Route
           path="*"
           element={
-            !isAuthenticated ? <Navigate to={LOGIN_URL} /> : <Dashboard />
+            !isAuthenticated ? <Navigate to={LOGIN_URL} /> : <NotFoundPage />
           }
         />
       </Routes>

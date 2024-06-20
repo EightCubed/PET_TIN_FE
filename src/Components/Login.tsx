@@ -51,6 +51,7 @@ const LoginForm = () => {
       pwd: formData.password,
       roles: response.roles,
       accessToken: response.accessToken,
+      _id: response._id,
     });
   };
 
@@ -98,6 +99,7 @@ const LoginForm = () => {
                 type={"checkbox"}
                 className={cx("checkBox")}
                 checked={formData.rememberMe}
+                onChange={() => {}}
               />
               <div className={cx("checkBoxText")}>Remember me</div>
             </div>

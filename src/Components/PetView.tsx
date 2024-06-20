@@ -51,15 +51,13 @@ const PetView = ({ petData }: PetViewProps) => {
     e.stopPropagation();
     try {
       setIsPetLiked(!isPetLiked);
-      const response = await Fetch({
+      await Fetch({
         method: "post",
         apiRoutes: "likePet",
         data: { data: { id } },
         bearerToken: auth.accessToken,
       });
-      console.log("Liked", response);
     } catch (err) {
-      setIsPetLiked(!isPetLiked);
       console.error(err);
     }
   };

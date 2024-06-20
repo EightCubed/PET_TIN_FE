@@ -10,6 +10,7 @@ import classNames from "classnames/bind";
 import { FormControlLabel, Checkbox, Chip } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Loader from "./Loader";
 
 const cx = classNames.bind(styles);
 
@@ -19,6 +20,7 @@ const IndividualPetView = () => {
 
   const [petData, setPetData] = useState<PetListDataType>(initPetData);
   const [isPetLiked, setIsPetLiked] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchPetData = async () => {
     try {
@@ -30,6 +32,7 @@ const IndividualPetView = () => {
       });
       setPetData(response);
       setIsPetLiked(response.isLikedByUser);
+      setIsLoading(false);
     } catch (err) {
       console.error(err);
     }
@@ -37,7 +40,7 @@ const IndividualPetView = () => {
 
   useEffect(() => {
     fetchPetData();
-  }, [isPetLiked]);
+  }, []);
 
   const handleLike = async (
     e: React.MouseEvent<HTMLLabelElement, MouseEvent>,
@@ -45,28 +48,38 @@ const IndividualPetView = () => {
   ) => {
     e.stopPropagation();
     try {
-      setIsPetLiked(!isPetLiked);
-      const response = await Fetch({
+      await Fetch({
         method: "post",
         apiRoutes: "likePet",
         data: { data: { id } },
         bearerToken: auth.accessToken,
       });
-      console.log("Liked", response);
+      fetchPetData();
     } catch (err) {
       setIsPetLiked(!isPetLiked);
       console.error(err);
     }
   };
 
-  const { ImageUrl, PetName, numberOfLikes, Location, Owner } = petData;
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  const {
+    ImageUrl,
+    PetName,
+    numberOfLikes,
+    Location,
+    OwnerDetails,
+    Description,
+  } = petData;
 
   return (
     <div>
       <Header />
       <div className={cx("displayDetailContainer")}>
-        <div>
-          <div>{PetName}</div>
+        <div className={cx("petNameContainer")}>
+          <div className={cx("petName")}>{PetName}</div>
         </div>
         <div className={cx("heartIconContainer")}>
           <div className={cx("interestedWidth")}>People interested </div>
@@ -74,7 +87,7 @@ const IndividualPetView = () => {
             <Chip
               label={numberOfLikes}
               variant="filled"
-              color={"default"}
+              color={"primary"}
               size="medium"
             />
           </div>
@@ -96,33 +109,28 @@ const IndividualPetView = () => {
         <div className={cx("imageContainer")}>
           <img src={ImageUrl} className={cx("petImageStyle")} />
         </div>
-        <div>
-          <div>About This Pet </div>
-          <div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum
-          </div>
+        <div className={cx("aboutThePet")}>
+          <div className={cx("aboutThePetTitle")}>About This Pet </div>
+          <div className={cx("aboutThePetBody")}>{Description}</div>
         </div>
         <div className={cx("lastRow")}>
-          <div>
-            <div>Location</div>
-            <div>{Location.City}</div>
-            <div>{Location.State}</div>
+          <div className={cx("locationContainer")}>
+            <div className={cx("locationTitle")}>Location Details</div>
+            <div className={cx("detailsFirstLine")}>
+              <div className={cx("space")}>{Location.City},</div>
+              <div>{Location.State}</div>
+            </div>
             <div>{Location.Country}</div>
           </div>
-          <div>
-            <div>Owner Details</div>
-            <div>
-              <div>{Owner.First}</div>
-              <div>{Owner.Last}</div>
+          <div className={cx("ownerContainer")}>
+            <div className={cx("ownerTitle")}>Owner Details</div>
+            <div className={cx("detailsFirstLine")}>
+              <div className={cx("space")}>{OwnerDetails.FirstName}</div>
+              <div className={cx("space")}>{OwnerDetails.LastName}</div>
+              <div>({OwnerDetails.Gender})</div>
             </div>
-            <div>{Owner.Gender}</div>
-            <div>{Owner.Age}</div>
+
+            <div>{OwnerDetails.Age}</div>
           </div>
         </div>
       </div>

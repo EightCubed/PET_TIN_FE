@@ -34,12 +34,14 @@
   font-weight: 700;
   font-size: 20px;
   margin: 0 30px;
+  cursor: pointer;
 }
 
 .FAQButton {
   font-weight: 700;
   font-size: 20px;
   margin: 0 30px;
+  cursor: pointer;
 }
 
 .rightIcons {
@@ -54,6 +56,16 @@
   margin: 0 20px;
   display: flex;
   flex-direction: row;
+  cursor: pointer;
+}
+
+.postAdoptionPets {
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0 20px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
 }
 
 .pawIcon {

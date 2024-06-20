@@ -1,19 +1,24 @@
-import axios from "axios";
 import { useAuth } from "../context/AuthProvider";
-import { BACKEND_URL } from "../utility Functions/fetch_utilites";
+import { Fetch } from "../utility Functions/fetch_utilites";
+import { LoginPostResponseData } from "../components/login.types";
 
 const useRefreshToken = () => {
   const { setAuth } = useAuth();
 
   const refresh = async () => {
-    const response = await axios.post(BACKEND_URL + "refreshToken", null, {
-      withCredentials: true,
+    const response = await Fetch<LoginPostResponseData>({
+      method: "post",
+      apiRoutes: "refreshToken",
     });
     setAuth((prev) => {
-      // console.log(response.data.accessToken);
-      return { ...prev, accessToken: response.data.accessToken };
+      return {
+        ...prev,
+        accessToken: response.accessToken,
+        _id: response._id,
+        username: response.username,
+      };
     });
-    return response.data.accessToken;
+    return response.accessToken;
   };
   return refresh;
 };

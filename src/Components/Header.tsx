@@ -8,6 +8,7 @@ import icon from "/pet_logo.png";
 import { Avatar, MenuItem, MenuList } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
 import PetsIcon from "@mui/icons-material/Pets";
+import AddIcon from "@mui/icons-material/Add";
 
 const cx = classNames.bind(styles);
 
@@ -19,6 +20,8 @@ const table: PathLookupType = {
   "/dashboard": "Home",
   "/help": "Help",
   "/FAQ": "FAQ",
+  "/likedPets": "likedPets",
+  "/postAdoption": "postAdoption",
 };
 
 const returnSelected = (headerTitle: string) => {
@@ -98,7 +101,19 @@ const Header = () => {
         </div>
       </div>
       <div className={cx("rightIcons")}>
-        <div className={cx("likedPets", returnSelected("likedPets"))}>
+        <div
+          className={cx("postAdoptionPets", returnSelected("postAdoption"))}
+          onClick={() => navigate("/postAdoption")}
+        >
+          <div className={cx("pawIcon")}>
+            <AddIcon />
+          </div>
+          Post for Adoption
+        </div>
+        <div
+          className={cx("likedPets", returnSelected("likedPets"))}
+          onClick={() => navigate("/likedPets")}
+        >
           <div className={cx("pawIcon")}>
             <PetsIcon />
           </div>
@@ -115,8 +130,10 @@ const Header = () => {
         {isDropDownSelected && (
           <div ref={dropdownRef} className={cx("dropdownContainer")}>
             <MenuList>
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>My account</MenuItem>
+              <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
+              <MenuItem onClick={() => navigate("/myAccount")}>
+                My account
+              </MenuItem>
               <MenuItem onClick={handleClick}>Logout</MenuItem>
             </MenuList>
           </div>

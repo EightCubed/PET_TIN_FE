@@ -30,6 +30,7 @@ export const initPetData: PetListDataType = {
   _id: "",
   isLikedByUser: false,
   numberOfLikes: 0,
+  Description: "",
 };
 
 export const initPetListData: PetListType = {

@@ -1,9 +1,21 @@
 .displayDetailContainer {
   width: 800px;
-  min-height: 800px;
   margin: 160px auto;
-  background-color: white;
+  background-color: rgb(180, 180, 180);
+  color: white;
   overflow-y: scroll;
+  padding: 50px 80px;
+  border-radius: 10px;
+}
+
+.petNameContainer {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.petName {
+  font-size: 36px;
+  font-weight: 800;
 }
 
 .heartIconContainer {
@@ -17,6 +29,10 @@
 .interestedWidth {
   margin-right: 8px;
   font-weight: 800;
+  background-color: #1876d1;
+  color: white;
+  padding: 0 12px;
+  border-radius: 10px;
 }
 
 .numberOfLikes {
@@ -30,15 +46,76 @@
   top: -2px;
 }
 
+.imageContainer {
+  margin: 20px auto;
+}
+
 .petImageStyle {
   width: 500px;
   height: 300px;
+  border-radius: 10px;
+}
+
+.aboutThePet {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background-color: white;
+  color: black;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.aboutThePetTitle {
+  padding-left: 40px;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.aboutThePetBody {
 }
 
 .lastRow {
   display: flex;
   flex-direction: row;
-  width: 80%;
   justify-content: space-between;
-  margin: 0 auto;
+  margin-top: 32px;
+}
+
+.locationContainer {
+  background-color: cadetblue;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+}
+
+.locationTitle {
+  font-weight: 700;
+  text-decoration: underline;
+  font-size: 18px;
+}
+
+.ownerContainer {
+  background-color: rgb(196, 86, 139);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+}
+
+.ownerTitle {
+  font-weight: 700;
+  text-decoration: underline;
+  font-size: 18px;
+}
+
+.detailsFirstLine {
+  display: flex;
+  flex-direction: row;
+}
+
+.space {
+  margin-right: 6px;
 }

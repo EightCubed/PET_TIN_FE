@@ -14,7 +14,7 @@
 }
 
 .imageStyle {
-  width: 100%;
+  width: 300px;
   height: 170px;
   border-radius: 10px;
 }
@@ -23,7 +23,6 @@
   display: flex;
   flex-direction: column;
   margin-top: 12px;
-  /* width: 70%; */
 }
 
 .petName {

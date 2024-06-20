@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 export interface AuthTypes {
   username: string;
+  _id: string;
   pwd: string;
   roles: number[];
   accessToken: string;

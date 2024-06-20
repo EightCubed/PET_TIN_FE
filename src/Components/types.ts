@@ -11,9 +11,9 @@ export type PetDataType = {
   PetName: string;
   Age: string;
   Gender: string;
-  Owner: {
-    First: string;
-    Last: string;
+  OwnerDetails: {
+    FirstName: string;
+    LastName: string;
     Age: string;
     Gender: string;
   };
@@ -27,4 +27,5 @@ export type PetDataType = {
   Breed: string;
   isLikedByUser: boolean;
   numberOfLikes: number;
+  Description: string;
 };

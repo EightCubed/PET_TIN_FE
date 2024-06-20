@@ -8,7 +8,9 @@ type ApiRoutes =
   | "register"
   | "refreshToken"
   | "likePet"
-  | "getPet";
+  | "getPet"
+  | "getUser"
+  | "getLikedPets";
 
 export const BACKEND_URL = "https://localhost:443/api/";
 
@@ -19,6 +21,8 @@ const protectedRoutes: ApiRoutes[] = [
   "listPets",
   "likePet",
   "getPet",
+  "getLikedPets",
+  "getUser",
 ];
 
 interface FetchType {
@@ -63,6 +67,7 @@ export async function Fetch<T>({
     const response: AxiosResponse<T> = await axios(args);
     return response.data;
   } catch (error) {
-    throw new Error(`Error making ${method} request : ${error}`);
+    console.log(error);
+    throw error;
   }
 }
