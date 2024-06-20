@@ -6,7 +6,8 @@ import classNames from "classnames/bind";
 import { Fetch } from "../utility Functions/fetch_utilites";
 import { useAuth } from "../context/AuthProvider";
 import Loader from "./Loader";
-import { Fetch_Location_List } from "../utility Functions/fetch_countries";
+import AsyncInput from "./AsyncInput";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -19,12 +20,6 @@ interface PetDetails {
   description: string;
 }
 
-interface LocationDetails {
-  city: string;
-  state: string;
-  country: string;
-}
-
 const initPetDetails: PetDetails = {
   petName: "pet123",
   petAge: "12",
@@ -33,12 +28,6 @@ const initPetDetails: PetDetails = {
   petBreed: "labrador",
   description:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
-};
-
-const initLocationDetails: LocationDetails = {
-  city: "",
-  state: "",
-  country: "",
 };
 
 interface UserData {
@@ -55,18 +44,30 @@ const initUserData: UserData = {
   gender: "",
 };
 
-// type ImageState = File | Blob | string | null;
+export interface OptsValue {
+  id: string;
+  name: string;
+}
+
+const initOptsValue: OptsValue = {
+  id: "",
+  name: "",
+};
 
 const PostAdoption = () => {
   const { auth } = useAuth();
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState<UserData>(initUserData);
   const [petDetails, setPetDetails] = useState<PetDetails>(initPetDetails);
-  const [petLocationDetails, setPetLocationDetails] =
-    useState<LocationDetails>(initLocationDetails);
   const [image, setImage] = useState<string[] | null>(null);
   const [file, setFile] = useState<File[] | null>(null);
+
+  const [selectedCountry, setSelectedCountry] =
+    useState<OptsValue>(initOptsValue);
+  const [selectedState, setSelectedState] = useState<OptsValue>(initOptsValue);
+  const [selectedCity, setSelectedCity] = useState<OptsValue>(initOptsValue);
 
   const fetchUser = async () => {
     try {
@@ -88,6 +89,10 @@ const PostAdoption = () => {
     const selectedFiles = Array.from(event.target.files || []);
     if (selectedFiles) {
       const selectedFiles = Array.from(event.target.files || []);
+      if (selectedFiles.length > 5) {
+        console.error("Too many files");
+        return;
+      }
       setFile(selectedFiles);
       const imageUrls = selectedFiles.map((file) => URL.createObjectURL(file));
       setImage(imageUrls);
@@ -101,24 +106,8 @@ const PostAdoption = () => {
     });
   };
 
-  const handleLocationChange = (name: string, value: string) => {
-    setPetLocationDetails({
-      ...petLocationDetails,
-      [name]: value,
-    });
-  };
-
-  const fetchCountryData = async () => {
-    const resp = await Fetch_Location_List();
-    return resp.map((r) => r.name.official);
-  };
-
   useEffect(() => {
     fetchUser();
-  }, []);
-
-  useEffect(() => {
-    fetchCountryData();
   }, []);
 
   const handleSubmit = async () => {
@@ -129,20 +118,23 @@ const PostAdoption = () => {
         data: {
           userId: auth._id,
           petDetails,
-          petLocationDetails,
+          petLocationDetails: {
+            city: selectedCity,
+            state: selectedState,
+            country: selectedCountry,
+          },
           file,
         },
         bearerToken: auth.accessToken,
       });
       console.log(response);
+      navigate("/dashboard");
     } catch (err) {
       console.error(err);
     }
   };
 
   const { petName, petAge, petBreed, petGender, petSpecies } = petDetails;
-
-  console.log(file, userData);
 
   return (
     <div>
@@ -253,55 +245,62 @@ const PostAdoption = () => {
           </div>
           <div className={cx("petImageDetails")}>
             <div className={cx("petDetailsTitle")}>Pet Images</div>
-            <input
-              type="file"
-              name="myImage"
-              multiple
-              onChange={handleImageChange}
-            />
-            {image &&
-              image.length > 0 &&
-              image.map((img) => {
-                return <img src={img} width={250} height={250} />;
-              })}
+            <div className={cx("fileInputContainerStyle")}>
+              <input
+                type="file"
+                name="myImage"
+                multiple
+                onChange={handleImageChange}
+                className={cx("fileInputStyle")}
+              />
+            </div>
+            <div className={cx("uploadedImageContainer")}>
+              {image &&
+                image.length > 0 &&
+                image.map((img) => {
+                  return (
+                    <img
+                      src={img}
+                      width={125}
+                      height={125}
+                      className={cx("uploadedImage")}
+                    />
+                  );
+                })}
+            </div>
           </div>
           <div className={cx("petLocationDetails")}>
             <div className={cx("petDetailsTitle")}>Location Details</div>
             <div className={cx("petLocationDetailsInputs")}>
               <div>
                 <div>Country</div>
-                <input
-                  value={petLocationDetails.country}
-                  name="country"
-                  onChange={({ target: { name, value } }) =>
-                    handleLocationChange(name, value)
-                  }
-                  className={cx("inputField")}
+                <AsyncInput
+                  type="country"
+                  onChange={(value: OptsValue) => {
+                    setSelectedCountry(value);
+                    setSelectedState(initOptsValue); // Reset state when country changes
+                    setSelectedCity(initOptsValue); // Reset city when country changes
+                  }}
                 />
               </div>
               <div>
                 <div>State</div>
-                <input
-                  value={petLocationDetails.state}
-                  name="state"
-                  type="number"
-                  step="0.1"
-                  max={35}
-                  onChange={({ target: { name, value } }) =>
-                    handleLocationChange(name, value)
-                  }
-                  className={cx("inputField")}
+                <AsyncInput
+                  type="state"
+                  countryId={selectedCountry.id}
+                  onChange={(value: OptsValue) => {
+                    setSelectedState(value);
+                    setSelectedCity(initOptsValue); // Reset city when state changes
+                  }}
                 />
               </div>
               <div>
                 <div>City</div>
-                <input
-                  value={petLocationDetails.city}
-                  name="city"
-                  onChange={({ target: { name, value } }) =>
-                    handleLocationChange(name, value)
-                  }
-                  className={cx("inputField")}
+                <AsyncInput
+                  type="city"
+                  countryId={selectedCountry.id}
+                  stateId={selectedState.id}
+                  onChange={(value: OptsValue) => setSelectedCity(value)}
                 />
               </div>
             </div>
@@ -312,5 +311,5 @@ const PostAdoption = () => {
     </div>
   );
 };
-// ULtOmq8sxM71GbJAsYq2FXJTFRM3bLqojeKyybVgc1kY7URj1E_hAsrPUAYJ_d4P1sM
+
 export default PostAdoption;

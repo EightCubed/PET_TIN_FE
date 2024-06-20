@@ -1,8 +1,9 @@
 .displayDetailContainer {
   width: 800px;
   margin: 160px auto;
-  background-color: rgb(180, 180, 180);
-  color: white;
+  /* background-color: rgb(180, 180, 180); */
+  background-color: #fee0e3;
+  /* color: white; */
   overflow-y: scroll;
   padding: 50px 80px;
   border-radius: 10px;

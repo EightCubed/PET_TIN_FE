@@ -6,6 +6,7 @@ export const initAuth: AuthTypes = {
   pwd: "",
   roles: [],
   accessToken: "",
+  _id: "",
 };
 
 export const initPetData: PetListDataType = {
@@ -13,12 +14,7 @@ export const initPetData: PetListDataType = {
   PetName: "",
   Age: "",
   Gender: "",
-  Owner: {
-    First: "",
-    Last: "",
-    Age: "",
-    Gender: "",
-  },
+  OwnerDetails: "",
   Location: {
     City: "",
     State: "",

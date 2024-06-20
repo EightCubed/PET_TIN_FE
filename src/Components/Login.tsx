@@ -60,64 +60,69 @@ const LoginForm = () => {
   };
 
   return (
-    <div className={cx("loginContainer")}>
-      <div className={cx("loginLeftContainer")}>
-        <form className={cx("formContainer")} onSubmit={(e) => handleSubmit(e)}>
-          <div className={cx("signInText")}>Sign In</div>
-          <div className={cx("userNameBox")}>
-            <div className={cx("userNameText")}>USERNAME</div>
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={({ target: { name, value } }) =>
-                handleChange(name, value)
-              }
-              size={30}
-              className={cx("userNameInput")}
-            />
-          </div>
-          <div className={cx("passwordNameBox")}>
-            <div className={cx("passwordNameText")}>PASSWORD</div>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={({ target: { name, value } }) =>
-                handleChange(name, value)
-              }
-              size={30}
-              className={cx("passwordNameInput")}
-            />
-          </div>
-          <button className={cx("signInButton")} type="submit">
-            Sign in
-          </button>
-          <div className={cx("lastRow")}>
-            <div className={cx("checkboxContainer")} onClick={handleChecked}>
-              <Form.Check
-                type={"checkbox"}
-                className={cx("checkBox")}
-                checked={formData.rememberMe}
-                onChange={() => {}}
+    <div className={cx("loginPage")}>
+      <div className={cx("loginContainer")}>
+        <div className={cx("loginLeftContainer")}>
+          <form
+            className={cx("formContainer")}
+            onSubmit={(e) => handleSubmit(e)}
+          >
+            <div className={cx("signInText")}>Sign In</div>
+            <div className={cx("userNameBox")}>
+              <div className={cx("userNameText")}>USERNAME</div>
+              <input
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={({ target: { name, value } }) =>
+                  handleChange(name, value)
+                }
+                size={30}
+                className={cx("userNameInput")}
               />
-              <div className={cx("checkBoxText")}>Remember me</div>
             </div>
-            <div className={cx("forgotPassword")}>Forgot Password</div>
-          </div>
-        </form>
-      </div>
-      <div className={cx("loginRightContainer")}>
-        <div className={cx("loginRightText")}>
-          <div className={cx("welcomeText")}>Welcome To Login</div>
-          <div className={cx("accountText")}>Don't have an account?</div>
-          <div className={cx("signUpButtonContainer")}>
-            <button
-              className={cx("signUpButton")}
-              onClick={handleNavigateToRegisterPage}
-            >
-              Sign Up
+            <div className={cx("passwordNameBox")}>
+              <div className={cx("passwordNameText")}>PASSWORD</div>
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={({ target: { name, value } }) =>
+                  handleChange(name, value)
+                }
+                size={30}
+                className={cx("passwordNameInput")}
+              />
+            </div>
+            <button className={cx("signInButton")} type="submit">
+              Sign in
             </button>
+            <div className={cx("lastRow")}>
+              <div className={cx("checkboxContainer")} onClick={handleChecked}>
+                <Form.Check
+                  type={"checkbox"}
+                  className={cx("checkBox")}
+                  checked={formData.rememberMe}
+                  onChange={() => {}}
+                />
+                <div className={cx("checkBoxText")}>Remember me</div>
+              </div>
+              <div className={cx("forgotPassword")}>Forgot Password</div>
+            </div>
+          </form>
+        </div>
+        <div className={cx("loginRightContainer")}>
+          <div className={cx("loginRightText")}>
+            <div className={cx("welcomeText")}>Welcome To Login</div>
+            <div className={cx("accountText")}>Don't have an account?</div>
+            <div className={cx("signUpButtonContainer")}>
+              <button
+                className={cx("signUpButton")}
+                onClick={handleNavigateToRegisterPage}
+              >
+                Sign Up
+              </button>
+            </div>
           </div>
         </div>
       </div>
