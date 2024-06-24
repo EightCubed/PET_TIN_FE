@@ -60,14 +60,17 @@
 }
 
 .uploadedImageContainer {
-  display: inline-grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  width: 100%;
-  row-gap: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 20px;
 }
 
 .uploadedImage {
-  margin: 0 auto;
+  width: 100px;
+  height: 100px;
 }
 
 .petLocationDetails {

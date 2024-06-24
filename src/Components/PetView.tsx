@@ -74,7 +74,7 @@ const PetView = ({ petData }: PetViewProps) => {
       </div>
       <div className={cx("imageContainer")}>
         <img
-          src={petData.ImageUrl}
+          src={petData.ImageArray[0] ?? ""}
           className={cx("imageStyle")}
           width={300}
           height={170}

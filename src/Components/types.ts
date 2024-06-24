@@ -11,13 +11,18 @@ export type PetDataType = {
   PetName: string;
   Age: string;
   Gender: string;
-  OwnerDetails: string;
+  OwnerDetails: {
+    FirstName: string;
+    LastName: string;
+    Age: string;
+    Gender: string;
+  };
   Location: {
     City: string;
     State: string;
     Country: string;
   };
-  ImageUrl: string;
+  ImageArray: string[];
   Species: string;
   Breed: string;
   isLikedByUser: boolean;

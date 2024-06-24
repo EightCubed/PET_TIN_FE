@@ -11,6 +11,7 @@ import { FormControlLabel, Checkbox, Chip } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Loader from "./Loader";
+import { Carousel } from "react-bootstrap";
 
 const cx = classNames.bind(styles);
 
@@ -66,7 +67,7 @@ const IndividualPetView = () => {
   }
 
   const {
-    ImageUrl,
+    ImageArray,
     PetName,
     numberOfLikes,
     Location,
@@ -74,8 +75,11 @@ const IndividualPetView = () => {
     Description,
   } = petData;
 
+  console.log(ImageArray);
+
   return (
     <div>
+      {isLoading && <Loader />}
       <Header />
       <div className={cx("displayDetailContainer")}>
         <div className={cx("petNameContainer")}>
@@ -106,9 +110,15 @@ const IndividualPetView = () => {
             />
           </div>
         </div>
-        <div className={cx("imageContainer")}>
-          <img src={ImageUrl} className={cx("petImageStyle")} />
-        </div>
+        <Carousel fade data-bs-theme="dark">
+          {ImageArray.map((activeImage) => (
+            <Carousel.Item interval={5000}>
+              <div className={cx("imageContainer")}>
+                <img src={activeImage} className={cx("petImageStyle")} />
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel>
         <div className={cx("aboutThePet")}>
           <div className={cx("aboutThePetTitle")}>About This Pet </div>
           <div className={cx("aboutThePetBody")}>{Description}</div>

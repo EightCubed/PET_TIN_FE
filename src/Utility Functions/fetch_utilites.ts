@@ -10,6 +10,7 @@ type ApiRoutes =
   | "likePet"
   | "getPet"
   | "getUser"
+  | "addPetPictures"
   | "getLikedPets";
 
 export const BACKEND_URL = "https://localhost:443/api/";
@@ -21,6 +22,7 @@ const protectedRoutes: ApiRoutes[] = [
   "listPets",
   "likePet",
   "getPet",
+  "addPetPictures",
   "getLikedPets",
   "getUser",
 ];
@@ -29,9 +31,10 @@ interface FetchType {
   method: MethodType;
   apiRoutes: ApiRoutes;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data?: Record<string, any>;
+  data?: Record<string, any> | FormData;
   bearerToken?: string;
   id?: string;
+  multipartFormData?: boolean;
 }
 
 export async function Fetch<T>({
@@ -40,34 +43,35 @@ export async function Fetch<T>({
   data = {},
   bearerToken,
   id = "",
+  multipartFormData = false,
 }: FetchType): Promise<T> {
   try {
-    let args: AxiosRequestConfig = {
+    const url = `${BACKEND_URL}${apiRoutes}${id ? `/${id}` : ""}`;
+    const headers: Record<string, string> = {};
+
+    if (protectedRoutes.includes(apiRoutes) && bearerToken) {
+      headers["Authorization"] = `Bearer ${bearerToken}`;
+    }
+
+    const config: AxiosRequestConfig = {
       method,
-      url: BACKEND_URL + apiRoutes,
+      url,
       withCredentials: true,
+      headers,
+      data,
     };
-    if (id) {
-      args.url += "/" + id;
+
+    if (multipartFormData) {
+      config.data = data;
+    } else {
+      headers["Content-Type"] = "application/json";
+      config.data = JSON.stringify(data);
     }
-    if (Object.entries(data).length !== 0) {
-      args = {
-        ...args,
-        data,
-      };
-    }
-    if (protectedRoutes.includes(apiRoutes)) {
-      args = {
-        ...args,
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-      };
-    }
-    const response: AxiosResponse<T> = await axios(args);
+
+    const response: AxiosResponse<T> = await axios(config);
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error("Error in Fetch:", error);
     throw error;
   }
 }

@@ -22,11 +22,16 @@ const initUserData: UserData = {
   gender: "",
 };
 
+const verifyUserData = (userData: UserData) => {
+  const { firstName, lastName, age, gender } = userData;
+  return Boolean(firstName && lastName && age && gender);
+};
+
 const GetUser = () => {
   const { auth } = useAuth();
 
   const [userData, setUserData] = useState<UserData>(initUserData);
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchUser = async () => {
@@ -39,6 +44,8 @@ const GetUser = () => {
       });
       setUserData(response);
       setIsLoading(false);
+      const isValid = verifyUserData(response);
+      setIsDisabled(isValid);
     } catch (err) {
       console.error(err);
       setIsLoading(false);

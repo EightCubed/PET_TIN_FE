@@ -5,7 +5,7 @@
   gap: 36px;
   margin: 160px auto 80px auto;
   row-gap: 40px;
-  min-height: 1000px;
+  min-height: 800px;
 }
 
 .gridItem {
@@ -13,9 +13,10 @@
   /* background-color: #ffe9e9; */
   border: 1px solid #ddd;
   text-align: center;
-  height: 340px;
+  max-height: 440px;
   padding: 20px;
   border-radius: 5px;
+  height: 100%;
 }
 
 .gridItem:hover {

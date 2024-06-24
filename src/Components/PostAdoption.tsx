@@ -1,4 +1,3 @@
-// src/components/PostAdoption.jsx
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import styles from "./postadoption.module.css";
@@ -8,6 +7,7 @@ import { useAuth } from "../context/AuthProvider";
 import Loader from "./Loader";
 import AsyncInput from "./AsyncInput";
 import { useNavigate } from "react-router-dom";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 
 const cx = classNames.bind(styles);
 
@@ -54,6 +54,18 @@ const initOptsValue: OptsValue = {
   name: "",
 };
 
+interface PostResponseID {
+  responseID: string;
+}
+
+const verifyUserData = (userData: UserData, isLoading: boolean) => {
+  if (!isLoading) {
+    const { firstName, lastName, age, gender } = userData;
+    return firstName && lastName && age && gender;
+  }
+  return true;
+};
+
 const PostAdoption = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
@@ -62,7 +74,7 @@ const PostAdoption = () => {
   const [userData, setUserData] = useState<UserData>(initUserData);
   const [petDetails, setPetDetails] = useState<PetDetails>(initPetDetails);
   const [image, setImage] = useState<string[] | null>(null);
-  const [file, setFile] = useState<File[] | null>(null);
+  const [files, setFiles] = useState<File[] | null>(null);
 
   const [selectedCountry, setSelectedCountry] =
     useState<OptsValue>(initOptsValue);
@@ -93,7 +105,7 @@ const PostAdoption = () => {
         console.error("Too many files");
         return;
       }
-      setFile(selectedFiles);
+      setFiles(selectedFiles);
       const imageUrls = selectedFiles.map((file) => URL.createObjectURL(file));
       setImage(imageUrls);
     }
@@ -112,27 +124,63 @@ const PostAdoption = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await Fetch({
+      const data = {
+        userId: auth._id,
+        emailId: auth,
+        petDetails,
+        petLocationDetails: {
+          city: selectedCity,
+          state: selectedState,
+          country: selectedCountry,
+        },
+      };
+
+      const formData = new FormData();
+
+      if (files && files.length > 0) {
+        files.forEach((file, idx) => {
+          formData.append(`files[${idx}]`, file);
+        });
+      }
+
+      const reponse = await Fetch<PostResponseID>({
         method: "put",
         apiRoutes: "addPet",
-        data: {
-          userId: auth._id,
-          petDetails,
-          petLocationDetails: {
-            city: selectedCity,
-            state: selectedState,
-            country: selectedCountry,
-          },
-          file,
-        },
+        data: data,
         bearerToken: auth.accessToken,
       });
-      console.log(response);
-      navigate("/dashboard");
+      const resp = await Fetch({
+        method: "put",
+        apiRoutes: "addPetPictures",
+        data: formData,
+        bearerToken: auth.accessToken,
+        multipartFormData: true,
+        id: reponse.responseID,
+      });
+      console.log(resp);
     } catch (err) {
       console.error(err);
     }
   };
+
+  if (!verifyUserData(userData, isLoading)) {
+    return (
+      <>
+        <Header />
+        <div>
+          <div>
+            Profile page is incomplete. Fill in profile details before you can
+            create a post
+          </div>
+          <div>
+            <button onClick={() => navigate("/profile")}>
+              <ArrowRightAltIcon /> Profile Page
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   const { petName, petAge, petBreed, petGender, petSpecies } = petDetails;
 
@@ -264,6 +312,7 @@ const PostAdoption = () => {
                       width={125}
                       height={125}
                       className={cx("uploadedImage")}
+                      key={img}
                     />
                   );
                 })}
