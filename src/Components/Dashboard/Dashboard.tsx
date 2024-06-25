@@ -1,5 +1,5 @@
-import PetList from "./PetList";
-import Header from "./Header";
+import PetList from "../Reusable Components/PetList";
+import Header from "../Reusable Components/Header";
 
 const Dashboard = () => {
   return (

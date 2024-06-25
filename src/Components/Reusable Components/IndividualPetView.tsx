@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 import Header from "./Header";
-import { Fetch } from "../utility Functions/fetch_utilites";
-import { useAuth } from "../context/AuthProvider";
+import { Fetch } from "../../utility Functions/fetch_utilites";
+import { useAuth } from "../../context/AuthProvider";
 import { useEffect, useState } from "react";
-import { PetListDataType } from "./types";
-import { initPetData } from "./constants";
+import { PetListDataType } from "../types";
+import { initPetData } from "../constants";
 import styles from "./individualpetview.module.css";
 import classNames from "classnames/bind";
 import { FormControlLabel, Checkbox, Chip } from "@mui/material";

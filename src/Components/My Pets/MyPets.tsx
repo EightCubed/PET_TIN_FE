@@ -1,6 +1,6 @@
-import { useAuth } from "../context/AuthProvider";
-import Header from "./Header";
-import PetList from "./PetList";
+import { useAuth } from "../../context/AuthProvider";
+import Header from "../Reusable Components/Header";
+import PetList from "../Reusable Components/PetList";
 
 const MyPets = () => {
   const { auth } = useAuth();

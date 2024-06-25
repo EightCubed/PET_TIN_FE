@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
+import Header from "../Reusable Components/Header";
 import styles from "./postadoption.module.css";
 import classNames from "classnames/bind";
-import { Fetch } from "../utility Functions/fetch_utilites";
-import { useAuth } from "../context/AuthProvider";
-import Loader from "./Loader";
-import AsyncInput from "./AsyncInput";
+import { Fetch } from "../../utility Functions/fetch_utilites";
+import { useAuth } from "../../context/AuthProvider";
+import Loader from "../Reusable Components/Loader";
+import AsyncInput from "../Reusable Components/AsyncInput";
 import { useNavigate } from "react-router-dom";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
-import { DASHBOARD_URL, PROFILE_URL } from "./constants";
+import { DASHBOARD_URL, PROFILE_URL } from "../constants";
 
 const cx = classNames.bind(styles);
 

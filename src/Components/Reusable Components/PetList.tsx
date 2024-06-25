@@ -7,7 +7,7 @@ import PetView from "./PetView";
 import styles from "./petlist.module.css";
 import classNames from "classnames/bind";
 import { useNavigate } from "react-router-dom";
-import Loader from "./Loader";
+import Loader from "./Reusable Components/Loader";
 import { formatURL } from "../utility Functions/utilities";
 
 const cx = classNames.bind(styles);

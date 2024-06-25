@@ -1,4 +1,4 @@
-import Header from "./Header";
+import Header from "../Reusable Components/Header";
 
 const Faq = () => {
   return (

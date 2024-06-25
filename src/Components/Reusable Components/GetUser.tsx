@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Fetch } from "../utility Functions/fetch_utilites";
-import { useAuth } from "../context/AuthProvider";
+import { Fetch } from "../../utility Functions/fetch_utilites";
+import { useAuth } from "../../context/AuthProvider";
 import Header from "./Header";
 import styles from "./getuser.module.css";
 import classNames from "classnames/bind";
