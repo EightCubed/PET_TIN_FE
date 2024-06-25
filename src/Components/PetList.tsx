@@ -8,6 +8,7 @@ import styles from "./petlist.module.css";
 import classNames from "classnames/bind";
 import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
+import { formatURL } from "../utility Functions/utilities";
 
 const cx = classNames.bind(styles);
 
@@ -55,7 +56,7 @@ const PetList = ({ userId, deleteEnabled = false }: PetListProps) => {
   };
 
   const handleClick = (data: PetListDataType) => {
-    navigate("/pet/" + data._id);
+    navigate(formatURL("pet", data._id));
   };
 
   useEffect(() => {

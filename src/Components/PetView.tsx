@@ -13,13 +13,14 @@ import { Fetch } from "../utility Functions/fetch_utilites";
 import { useAuth } from "../context/AuthProvider";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { formatURL } from "../utility Functions/utilities";
 
 const cx = classNames.bind(styles);
 
 interface PetViewProps {
   petData: PetDataType;
-  deleteEnabled: boolean;
-  handlePetDelete: (petId: string) => Promise<void>;
+  deleteEnabled?: boolean;
+  handlePetDelete?: (petId: string) => Promise<void>;
 }
 
 type Color =
@@ -77,7 +78,7 @@ const PetView = ({
   ) => {
     e.stopPropagation();
     try {
-      handlePetDelete(petData._id);
+      if (handlePetDelete) handlePetDelete(petData._id);
     } catch (err) {
       console.error(err);
     }
@@ -85,7 +86,7 @@ const PetView = ({
 
   const handlePetEdit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
-    navigate("/pet/" + petData._id + "/edit");
+    navigate(formatURL("pet", petData._id, "edit"));
   };
 
   const { isDeletable, isEditable } = petData;

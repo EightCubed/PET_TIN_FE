@@ -8,6 +8,7 @@ import styles from "./petlist.module.css";
 import classNames from "classnames/bind";
 import { useNavigate } from "react-router-dom";
 import PetView from "./PetView";
+import { formatURL } from "../utility Functions/utilities";
 
 const cx = classNames.bind(styles);
 
@@ -40,7 +41,7 @@ const LikedPets = () => {
   }, []);
 
   const handleClick = (data: PetListDataType) => {
-    navigate("/pet/" + data._id);
+    navigate(formatURL("pet", data._id));
   };
 
   return (

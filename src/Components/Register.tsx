@@ -6,6 +6,7 @@ import classNames from "classnames/bind";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import debounce from "../hooks/useDebounce";
+import { LOGIN_URL } from "./constants";
 
 const cx = classNames.bind(styles);
 
@@ -69,7 +70,7 @@ const RegisterForm = () => {
   };
 
   const handleNavigateToRegisterPage = () => {
-    navigate("/login");
+    navigate(LOGIN_URL);
   };
 
   return (

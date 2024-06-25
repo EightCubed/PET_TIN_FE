@@ -6,6 +6,7 @@ import styles from "./login.module.css";
 import classNames from "classnames/bind";
 import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { REGISTER_URL } from "./constants";
 
 const cx = classNames.bind(styles);
 
@@ -56,7 +57,7 @@ const LoginForm = () => {
   };
 
   const handleNavigateToRegisterPage = () => {
-    navigate("/register");
+    navigate(REGISTER_URL);
   };
 
   return (

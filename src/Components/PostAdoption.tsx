@@ -8,6 +8,7 @@ import Loader from "./Loader";
 import AsyncInput from "./AsyncInput";
 import { useNavigate } from "react-router-dom";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import { DASHBOARD_URL, PROFILE_URL } from "./constants";
 
 const cx = classNames.bind(styles);
 
@@ -157,7 +158,7 @@ const PostAdoption = () => {
         id: reponse.responseID,
       });
       console.log(resp);
-      navigate("/dashboard");
+      navigate(DASHBOARD_URL);
     } catch (err) {
       console.error(err);
     }
@@ -173,7 +174,7 @@ const PostAdoption = () => {
             create a post
           </div>
           <div>
-            <button onClick={() => navigate("/profile")}>
+            <button onClick={() => navigate(PROFILE_URL)}>
               <ArrowRightAltIcon /> Profile Page
             </button>
           </div>

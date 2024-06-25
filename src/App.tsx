@@ -7,7 +7,19 @@ import { jwtDecode } from "jwt-decode";
 import { useAuth } from "./context/AuthProvider";
 import useRefreshToken from "./hooks/useRefreshToken";
 import Loader from "./components/Loader";
-import { DASHBOARD_URL, LOGIN_URL } from "./components/constants";
+import {
+  DASHBOARD_URL,
+  FAQ_URL,
+  HELP_URL,
+  LIKEDPETS_URL,
+  LOGIN_URL,
+  MYACCOUNT_URL,
+  MYPETS_URL,
+  PETVIEW_URL,
+  POSTADOPTION_URL,
+  PROFILE_URL,
+  REGISTER_URL,
+} from "./components/constants";
 import RegisterForm from "./components/Register";
 import Help from "./components/Help";
 import Faq from "./components/Faq";
@@ -59,8 +71,8 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" />} />
-        <Route path="/register" element={<RegisterForm />}></Route>
+        <Route path="/" element={<Navigate to={DASHBOARD_URL} />} />
+        <Route path={REGISTER_URL} element={<RegisterForm />}></Route>
         <Route
           path={LOGIN_URL}
           element={
@@ -74,15 +86,15 @@ function App() {
           }
         />
         <Route
-          path={"/help"}
+          path={HELP_URL}
           element={!isAuthenticated ? <Navigate to={LOGIN_URL} /> : <Help />}
         />
         <Route
-          path={"/FAQ"}
+          path={FAQ_URL}
           element={!isAuthenticated ? <Navigate to={LOGIN_URL} /> : <Faq />}
         />
         <Route
-          path={"/pet/:id"}
+          path={PETVIEW_URL}
           element={
             !isAuthenticated ? (
               <Navigate to={LOGIN_URL} />
@@ -92,29 +104,29 @@ function App() {
           }
         />
         <Route
-          path={"/likedPets"}
+          path={LIKEDPETS_URL}
           element={
             !isAuthenticated ? <Navigate to={LOGIN_URL} /> : <LikedPets />
           }
         />
         <Route
-          path={"/postAdoption"}
+          path={POSTADOPTION_URL}
           element={
             !isAuthenticated ? <Navigate to={LOGIN_URL} /> : <PostAdoption />
           }
         />
         <Route
-          path={"/profile"}
+          path={PROFILE_URL}
           element={!isAuthenticated ? <Navigate to={LOGIN_URL} /> : <GetUser />}
         />
         <Route
-          path={"/myAccount"}
+          path={MYACCOUNT_URL}
           element={
             !isAuthenticated ? <Navigate to={LOGIN_URL} /> : <MyAccount />
           }
         />
         <Route
-          path={"/myPets"}
+          path={MYPETS_URL}
           element={!isAuthenticated ? <Navigate to={LOGIN_URL} /> : <MyPets />}
         />
         <Route

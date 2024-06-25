@@ -3,7 +3,18 @@ import styles from "./header.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import { Fetch } from "../utility Functions/fetch_utilites";
-import { DASHBOARD_URL, initAuth, LOGIN_URL } from "./constants";
+import {
+  DASHBOARD_URL,
+  FAQ_URL,
+  HELP_URL,
+  initAuth,
+  LIKEDPETS_URL,
+  LOGIN_URL,
+  MYACCOUNT_URL,
+  MYPETS_URL,
+  POSTADOPTION_URL,
+  PROFILE_URL,
+} from "./constants";
 import icon from "/pet_logo.png";
 import { Avatar, MenuItem, MenuList } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
@@ -89,13 +100,13 @@ const Header = () => {
         </div>
         <div
           className={cx("FAQButton", returnSelected("FAQ"))}
-          onClick={() => navigate("/FAQ")}
+          onClick={() => navigate(FAQ_URL)}
         >
           FAQ
         </div>
         <div
           className={cx("FAQButton", returnSelected("Help"))}
-          onClick={() => navigate("/help")}
+          onClick={() => navigate(HELP_URL)}
         >
           Help
         </div>
@@ -103,7 +114,7 @@ const Header = () => {
       <div className={cx("rightIcons")}>
         <div
           className={cx("postAdoptionPets", returnSelected("postAdoption"))}
-          onClick={() => navigate("/postAdoption")}
+          onClick={() => navigate(POSTADOPTION_URL)}
         >
           <div className={cx("pawIcon")}>
             <AddIcon />
@@ -112,7 +123,7 @@ const Header = () => {
         </div>
         <div
           className={cx("likedPets", returnSelected("likedPets"))}
-          onClick={() => navigate("/likedPets")}
+          onClick={() => navigate(LIKEDPETS_URL)}
         >
           <div className={cx("pawIcon")}>
             <PetsIcon />
@@ -130,9 +141,9 @@ const Header = () => {
         {isDropDownSelected && (
           <div ref={dropdownRef} className={cx("dropdownContainer")}>
             <MenuList>
-              <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
-              <MenuItem onClick={() => navigate("/myPets")}>My Pets</MenuItem>
-              <MenuItem onClick={() => navigate("/myAccount")}>
+              <MenuItem onClick={() => navigate(PROFILE_URL)}>Profile</MenuItem>
+              <MenuItem onClick={() => navigate(MYPETS_URL)}>My Pets</MenuItem>
+              <MenuItem onClick={() => navigate(MYACCOUNT_URL)}>
                 My account
               </MenuItem>
               <MenuItem onClick={handleClick}>Logout</MenuItem>

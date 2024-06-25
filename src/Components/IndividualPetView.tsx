@@ -75,8 +75,6 @@ const IndividualPetView = () => {
     Description,
   } = petData;
 
-  console.log(ImageArray);
-
   return (
     <div>
       {isLoading && <Loader />}
@@ -112,7 +110,7 @@ const IndividualPetView = () => {
         </div>
         <Carousel fade data-bs-theme="dark">
           {ImageArray.map((activeImage) => (
-            <Carousel.Item interval={5000}>
+            <Carousel.Item key={activeImage} interval={5000}>
               <div className={cx("imageContainer")}>
                 <img src={activeImage} className={cx("petImageStyle")} />
               </div>
