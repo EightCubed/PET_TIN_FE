@@ -11,7 +11,12 @@ import Loader from "./Loader";
 
 const cx = classNames.bind(styles);
 
-const PetList = () => {
+interface PetListProps {
+  userId?: string;
+  deleteEnabled?: boolean;
+}
+
+const PetList = ({ userId, deleteEnabled = false }: PetListProps) => {
   const { auth } = useAuth();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -24,11 +29,28 @@ const PetList = () => {
         method: "get",
         apiRoutes: "listPets",
         bearerToken: auth.accessToken,
+        id: userId ?? "",
       });
       setPetListData(response);
       setIsLoading(false);
     } catch (err) {
       console.error("Something Went Wrong!!!");
+    }
+  };
+
+  const handlePetDelete = async (petId: string) => {
+    try {
+      const response = await Fetch({
+        method: "delete",
+        apiRoutes: "deletePet",
+        id: petId,
+        bearerToken: auth.accessToken,
+      });
+      console.log(response);
+      fetchPetList();
+    } catch (err) {
+      console.error(err);
+      fetchPetList();
     }
   };
 
@@ -53,7 +75,11 @@ const PetList = () => {
             className={cx("gridItem")}
             onClick={() => handleClick(data)}
           >
-            <PetView petData={data} />
+            <PetView
+              petData={data}
+              deleteEnabled={deleteEnabled}
+              handlePetDelete={handlePetDelete}
+            />
           </div>
         ))}
     </div>

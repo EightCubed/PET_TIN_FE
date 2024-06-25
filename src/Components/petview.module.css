@@ -42,6 +42,12 @@
   left: -4px;
 }
 
+.trashIcon {
+  position: relative;
+  top: -32px;
+  left: -4px;
+}
+
 .firstRow {
   display: flex;
   flex-direction: row;

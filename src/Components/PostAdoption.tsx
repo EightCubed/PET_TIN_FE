@@ -21,13 +21,12 @@ interface PetDetails {
 }
 
 const initPetDetails: PetDetails = {
-  petName: "pet123",
-  petAge: "12",
-  petGender: "male",
-  petSpecies: "dog",
-  petBreed: "labrador",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+  petName: "",
+  petAge: "",
+  petGender: "",
+  petSpecies: "",
+  petBreed: "",
+  description: "",
 };
 
 interface UserData {
@@ -158,6 +157,7 @@ const PostAdoption = () => {
         id: reponse.responseID,
       });
       console.log(resp);
+      navigate("/dashboard");
     } catch (err) {
       console.error(err);
     }
@@ -182,7 +182,8 @@ const PostAdoption = () => {
     );
   }
 
-  const { petName, petAge, petBreed, petGender, petSpecies } = petDetails;
+  const { petName, petAge, petBreed, petGender, petSpecies, description } =
+    petDetails;
 
   return (
     <div>
@@ -289,6 +290,17 @@ const PostAdoption = () => {
                   className={cx("inputField")}
                 />
               </div>
+            </div>
+            <div>
+              <div>Pet Description</div>
+              <textarea
+                value={description}
+                name="description"
+                onChange={({ target: { name, value } }) =>
+                  handleChange(name, value)
+                }
+                className={cx("inputField", "textArea")}
+              />
             </div>
           </div>
           <div className={cx("petImageDetails")}>

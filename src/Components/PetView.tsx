@@ -6,15 +6,20 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Checkbox from "@mui/material/Checkbox";
 import LocationOnSharpIcon from "@mui/icons-material/LocationOnSharp";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 import { Chip } from "@mui/material";
 import { Fetch } from "../utility Functions/fetch_utilites";
 import { useAuth } from "../context/AuthProvider";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
 interface PetViewProps {
   petData: PetDataType;
+  deleteEnabled: boolean;
+  handlePetDelete: (petId: string) => Promise<void>;
 }
 
 type Color =
@@ -39,8 +44,13 @@ const returnChipColor = (name: string): Color => {
   return chipConverter[name] || "success";
 };
 
-const PetView = ({ petData }: PetViewProps) => {
+const PetView = ({
+  petData,
+  deleteEnabled = false,
+  handlePetDelete,
+}: PetViewProps) => {
   const { auth } = useAuth();
+  const navigate = useNavigate();
 
   const [isPetLiked, setIsPetLiked] = useState(petData.isLikedByUser);
 
@@ -62,6 +72,24 @@ const PetView = ({ petData }: PetViewProps) => {
     }
   };
 
+  const handlePetDeleteTrigger = async (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    try {
+      handlePetDelete(petData._id);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handlePetEdit = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    navigate("/pet/" + petData._id + "/edit");
+  };
+
+  const { isDeletable, isEditable } = petData;
+
   return (
     <div className={cx("petDisplay")}>
       <div className={cx("chipStyle")}>
@@ -79,20 +107,35 @@ const PetView = ({ petData }: PetViewProps) => {
           width={300}
           height={170}
         />
-        <div className={cx("heartIcon")}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                icon={<FavoriteBorderIcon />}
-                checkedIcon={<FavoriteIcon />}
-                onClick={() => {}}
-                checked={isPetLiked}
-              />
-            }
-            onClick={(e) => handleLike(e, petData._id)}
-            label={""}
-          />
-        </div>
+        {!deleteEnabled && (
+          <div className={cx("heartIcon")}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  icon={<FavoriteBorderIcon />}
+                  checkedIcon={<FavoriteIcon />}
+                  onClick={() => {}}
+                  checked={isPetLiked}
+                />
+              }
+              onClick={(e) => handleLike(e, petData._id)}
+              label={""}
+            />
+          </div>
+        )}
+        {isEditable && (
+          <div className={cx("trashIcon")} onClick={(e) => handlePetEdit(e)}>
+            <EditIcon />
+          </div>
+        )}
+        {isDeletable && (
+          <div
+            className={cx("trashIcon")}
+            onClick={(e) => handlePetDeleteTrigger(e)}
+          >
+            <DeleteIcon />
+          </div>
+        )}
       </div>
       <div className={cx("petDetails")}>
         <div className={cx("firstRow")}>

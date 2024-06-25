@@ -17,6 +17,7 @@ import NotFoundPage from "./components/NotFoundPage";
 import PostAdoption from "./components/PostAdoption";
 import GetUser from "./components/GetUser";
 import MyAccount from "./components/MyAccount";
+import MyPets from "./components/MyPets";
 
 function App() {
   const { auth } = useAuth();
@@ -111,6 +112,10 @@ function App() {
           element={
             !isAuthenticated ? <Navigate to={LOGIN_URL} /> : <MyAccount />
           }
+        />
+        <Route
+          path={"/myPets"}
+          element={!isAuthenticated ? <Navigate to={LOGIN_URL} /> : <MyPets />}
         />
         <Route
           path="*"

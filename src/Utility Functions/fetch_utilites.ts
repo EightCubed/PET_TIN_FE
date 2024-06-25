@@ -8,6 +8,7 @@ type ApiRoutes =
   | "register"
   | "refreshToken"
   | "likePet"
+  | "deletePet"
   | "getPet"
   | "getUser"
   | "addPetPictures"
@@ -15,7 +16,7 @@ type ApiRoutes =
 
 export const BACKEND_URL = "https://localhost:443/api/";
 
-type MethodType = "put" | "post" | "get" | "patch";
+type MethodType = "put" | "post" | "get" | "patch" | "delete";
 
 const protectedRoutes: ApiRoutes[] = [
   "addPet",
@@ -25,6 +26,7 @@ const protectedRoutes: ApiRoutes[] = [
   "addPetPictures",
   "getLikedPets",
   "getUser",
+  "deletePet",
 ];
 
 interface FetchType {

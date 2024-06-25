@@ -95,6 +95,11 @@
   height: 32px;
 }
 
+.textArea {
+  width: 720px;
+  min-height: 160px;
+}
+
 .inputFieldDisabled {
   width: 300px;
   background-color: #afafaf;

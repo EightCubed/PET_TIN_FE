@@ -28,4 +28,6 @@ export type PetDataType = {
   isLikedByUser: boolean;
   numberOfLikes: number;
   Description: string;
+  isDeletable?: boolean;
+  isEditable?: boolean;
 };

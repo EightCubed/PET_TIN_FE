@@ -131,6 +131,7 @@ const Header = () => {
           <div ref={dropdownRef} className={cx("dropdownContainer")}>
             <MenuList>
               <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
+              <MenuItem onClick={() => navigate("/myPets")}>My Pets</MenuItem>
               <MenuItem onClick={() => navigate("/myAccount")}>
                 My account
               </MenuItem>
