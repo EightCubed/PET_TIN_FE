@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Fetch } from "../utility Functions/fetch_utilites";
+import { Fetch } from "../../utility Functions/fetch_utilites";
 import { LoginPostData, LoginPostResponseData } from "./login.types";
-import { useAuth } from "../context/AuthProvider";
+import { useAuth } from "../../context/AuthProvider";
 import styles from "./login.module.css";
 import classNames from "classnames/bind";
 import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { REGISTER_URL } from "./constants";
+import { REGISTER_URL } from "../constants";
 
 const cx = classNames.bind(styles);
 

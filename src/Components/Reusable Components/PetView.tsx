@@ -1,4 +1,4 @@
-import { PetDataType } from "./types";
+import { PetDataType } from "../types";
 import styles from "./petview.module.css";
 import classNames from "classnames/bind";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -9,11 +9,11 @@ import LocationOnSharpIcon from "@mui/icons-material/LocationOnSharp";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Chip } from "@mui/material";
-import { Fetch } from "../utility Functions/fetch_utilites";
-import { useAuth } from "../context/AuthProvider";
+import { Fetch } from "../../utility Functions/fetch_utilites";
+import { useAuth } from "../../context/AuthProvider";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { formatURL } from "../utility Functions/utilities";
+import { formatURL } from "../../utility Functions/utilities";
 
 const cx = classNames.bind(styles);
 

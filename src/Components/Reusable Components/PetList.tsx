@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthProvider";
-import { Fetch } from "../utility Functions/fetch_utilites";
-import { PetListDataType, PetListType } from "./types";
-import { initPetListData } from "./constants";
+import { useAuth } from "../../context/AuthProvider";
+import { Fetch } from "../../utility Functions/fetch_utilites";
+import { PetListDataType, PetListType } from "../types";
+import { initPetListData } from "../constants";
 import PetView from "./PetView";
 import styles from "./petlist.module.css";
 import classNames from "classnames/bind";
 import { useNavigate } from "react-router-dom";
-import Loader from "./Reusable Components/Loader";
-import { formatURL } from "../utility Functions/utilities";
+import Loader from "../Reusable Components/Loader";
+import { formatURL } from "../../utility Functions/utilities";
 
 const cx = classNames.bind(styles);
 

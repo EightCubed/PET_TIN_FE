@@ -1,8 +1,8 @@
 import classNames from "classnames/bind";
 import styles from "./header.module.css";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthProvider";
-import { Fetch } from "../utility Functions/fetch_utilites";
+import { useAuth } from "../../context/AuthProvider";
+import { Fetch } from "../../utility Functions/fetch_utilites";
 import {
   DASHBOARD_URL,
   FAQ_URL,
@@ -14,7 +14,7 @@ import {
   MYPETS_URL,
   POSTADOPTION_URL,
   PROFILE_URL,
-} from "./constants";
+} from "../constants";
 import icon from "/pet_logo.png";
 import { Avatar, MenuItem, MenuList } from "@mui/material";
 import { useEffect, useState, useRef } from "react";

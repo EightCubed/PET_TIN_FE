@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
-import { FETCH_LOCATION_LIST } from "../utility Functions/fetch_countries";
-import styles from "./postadoption.module.css";
+import { FETCH_LOCATION_LIST } from "../../utility Functions/fetch_countries";
+import styles from "../Post Adoption/postadoption.module.css";
 import classNames from "classnames/bind";
-import { OptsValue } from "./PostAdoption";
+import { OptsValue } from "../Post Adoption/PostAdoption";
 
 const cx = classNames.bind(styles);
 

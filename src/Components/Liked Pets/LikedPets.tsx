@@ -4,7 +4,7 @@ import Header from "../Reusable Components/Header";
 import { PetListDataType, PetListType } from "../types";
 import { useAuth } from "../../context/AuthProvider";
 import { initPetListData } from "../constants";
-import styles from "./petlist.module.css";
+import styles from "../Reusable Components/petlist.module.css";
 import classNames from "classnames/bind";
 import { useNavigate } from "react-router-dom";
 import PetView from "../Reusable Components/PetView";

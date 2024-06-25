@@ -1,12 +1,12 @@
 import React, { useCallback, useState } from "react";
-import { Fetch } from "../utility Functions/fetch_utilites";
+import { Fetch } from "../../utility Functions/fetch_utilites";
 import { RegisterPostData, LoginPostResponseData } from "./login.types";
 import styles from "./login.module.css";
 import classNames from "classnames/bind";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "react-bootstrap";
-import debounce from "../hooks/useDebounce";
-import { LOGIN_URL } from "./constants";
+import debounce from "../../hooks/useDebounce";
+import { LOGIN_URL } from "../constants";
 
 const cx = classNames.bind(styles);
 
