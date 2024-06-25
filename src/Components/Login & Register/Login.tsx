@@ -7,6 +7,7 @@ import classNames from "classnames/bind";
 import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { REGISTER_URL } from "../constants";
+import toast, { Toaster } from "react-hot-toast";
 
 const cx = classNames.bind(styles);
 
@@ -38,22 +39,29 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await Fetch<LoginPostResponseData>({
-      method: "post",
-      apiRoutes: "login",
-      data: {
-        user: formData.username,
+
+    try {
+      const response = await Fetch<LoginPostResponseData>({
+        method: "post",
+        apiRoutes: "login",
+        data: {
+          user: formData.username,
+          pwd: formData.password,
+          rememberMe: formData.rememberMe,
+        },
+      });
+      setAuth({
+        username: formData.username,
         pwd: formData.password,
-        rememberMe: formData.rememberMe,
-      },
-    });
-    setAuth({
-      username: formData.username,
-      pwd: formData.password,
-      roles: response.roles,
-      accessToken: response.accessToken,
-      _id: response._id,
-    });
+        roles: response.roles,
+        accessToken: response.accessToken,
+        _id: response._id,
+      });
+    } catch (err) {
+      const error = err as Error;
+      console.error(error.message);
+      toast(error.message);
+    }
   };
 
   const handleNavigateToRegisterPage = () => {
@@ -62,6 +70,11 @@ const LoginForm = () => {
 
   return (
     <div className={cx("loginPage")}>
+      <div className={cx("toastContainer")}>
+        <div className={cx("errorTextLogin")}>
+          <Toaster />
+        </div>
+      </div>
       <div className={cx("loginContainer")}>
         <div className={cx("loginLeftContainer")}>
           <form
@@ -95,6 +108,7 @@ const LoginForm = () => {
                 className={cx("passwordNameInput")}
               />
             </div>
+
             <button className={cx("signInButton")} type="submit">
               Sign in
             </button>

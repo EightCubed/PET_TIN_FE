@@ -73,7 +73,7 @@ export async function Fetch<T>({
     const response: AxiosResponse<T> = await axios(config);
     return response.data;
   } catch (error) {
-    console.error("Error in Fetch:", error);
-    throw error;
+    // console.error("Error in Fetch:", error);
+    throw error as string;
   }
 }

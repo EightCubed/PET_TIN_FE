@@ -19,6 +19,13 @@
   margin: auto auto;
 }
 
+.toastContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 40px;
+}
+
 .reverse {
   flex-direction: row-reverse;
 }

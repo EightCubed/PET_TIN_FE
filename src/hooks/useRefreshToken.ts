@@ -1,6 +1,6 @@
 import { useAuth } from "../context/AuthProvider";
 import { Fetch } from "../utility Functions/fetch_utilites";
-import { LoginPostResponseData } from "../components/login.types";
+import { LoginPostResponseData } from "../components/Login & Register/login.types";
 
 const useRefreshToken = () => {
   const { setAuth } = useAuth();

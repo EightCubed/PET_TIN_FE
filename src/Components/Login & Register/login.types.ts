@@ -15,4 +15,5 @@ export interface LoginPostResponseData {
   accessToken: string;
   _id: string;
   username: string;
+  message: string;
 }
